@@ -2,7 +2,7 @@
 
 name: shuffle-members
 
-# Controls when the action will run. 
+# Controls when the action will run.
 on:
   issues:
     types: [opened]
@@ -11,7 +11,10 @@ jobs:
   comment:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/github-script@v3
+      - name: display
+        run: echo '${{ toJson(github.event) }}'
+      - name: comment-on-issue
+        uses: actions/github-script@v3
         with:
           github-token: ${{secrets.GITHUB_TOKEN}}
           script: |
