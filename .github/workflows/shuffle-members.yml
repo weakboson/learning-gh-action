@@ -11,7 +11,7 @@ jobs:
   comment:
     runs-on: ubuntu-latest
     steps:
-      - name: display
+      - name: dump
         run: echo '${{ toJson(github.event) }}'
       - name: comment-on-issue
         uses: actions/github-script@v3
