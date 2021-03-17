@@ -19,9 +19,34 @@ jobs:
         with:
           github-token: ${{secrets.GITHUB_TOKEN}}
           script: |
+            function shuffle(array) {
+              let currentIndex = array.length, temporaryValue, randomIndex
+
+              // While there remain elements to shuffle...
+              while (0 !== currentIndex) {
+
+                // Pick a remaining element...
+                randomIndex = Math.floor(Math.random() * currentIndex)
+                currentIndex -= 1
+
+                // And swap it with the current element.
+                temporaryValue = array[currentIndex]
+                array[currentIndex] = array[randomIndex]
+                array[randomIndex] = temporaryValue
+              }
+
+              return array
+            }
+            const members = [
+              'weakboson',
+              'gluon',
+              'graviton',
+              'photon'
+            ]
+            const checkList = shuffle(members).map((m) => `- [ ] ${m}`).join("\n")
             github.issues.createComment({
               issue_number: context.issue.number,
               owner: context.repo.owner,
               repo: context.repo.repo,
-              body: '👋 WIN!'
+              body: `👋 WIN! \n${checkList}`
             })
